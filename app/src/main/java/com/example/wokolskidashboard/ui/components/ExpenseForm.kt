@@ -18,6 +18,7 @@ fun ExpenseForm(
     onCategoryChange: (String) -> Unit,
     onUnnecessaryChange: (Boolean) -> Unit,
 
+    onAddExpense: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -61,6 +62,12 @@ fun ExpenseForm(
                 checked = isUnnecessary,
                 onCheckedChange = onUnnecessaryChange
             )
+        }
+        Button(
+            onClick = onAddExpense,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Zapisz wydatek")
         }
     }
 }
