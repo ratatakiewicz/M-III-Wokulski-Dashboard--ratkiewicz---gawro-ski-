@@ -13,7 +13,11 @@ fun ExpenseForm(
     category: String,
     isUnnecessary: Boolean,
 
+    onNameChange: (String) -> Unit,
+    onAmountChange: (String) -> Unit,
+    onCategoryChange: (String) -> Unit,
     onUnnecessaryChange: (Boolean) -> Unit,
+
 ) {
     Column(
         modifier = Modifier
@@ -25,6 +29,27 @@ fun ExpenseForm(
         Text(
             text = "💸 Wydatki Wokulskiego",
             style = MaterialTheme.typography.titleMedium
+        )
+
+        OutlinedTextField(
+            value = name,
+            onValueChange = onNameChange,
+            label = { Text("Cel wydatku") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        OutlinedTextField(
+            value = amount,
+            onValueChange = onAmountChange,
+            label = { Text("Kwota (Rubel)") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        OutlinedTextField(
+            value = category,
+            onValueChange = onCategoryChange,
+            label = { Text("Kategoria (np. Sklep, Osobiste)") },
+            modifier = Modifier.fillMaxWidth()
         )
 
         Row(
