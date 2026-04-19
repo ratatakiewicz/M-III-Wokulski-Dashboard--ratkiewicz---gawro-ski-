@@ -8,7 +8,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ExpenseForm(
-
+    name: String,
+    amount: String,
+    category: String,
 ) {
     Column(
         modifier = Modifier
