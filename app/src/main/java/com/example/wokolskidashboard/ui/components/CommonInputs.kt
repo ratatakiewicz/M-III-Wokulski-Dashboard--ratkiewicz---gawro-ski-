@@ -19,3 +19,18 @@ fun WokulskiTextField(
     )
 }
 
+@Composable
+fun WokulskiButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled
+    ) {
+        Text(text)
+    }
+}
