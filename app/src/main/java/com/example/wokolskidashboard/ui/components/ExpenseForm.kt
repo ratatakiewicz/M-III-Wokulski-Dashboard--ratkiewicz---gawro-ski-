@@ -4,7 +4,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.wokulskidashboard.ui.components.IncomeForm
 
 @Composable
 fun ExpenseForm(
@@ -70,4 +72,20 @@ fun ExpenseForm(
             Text("Zapisz wydatek")
         }
     }
+}
+
+@Preview
+@Composable
+fun ExpenseFormPreview() {
+    ExpenseForm(
+        name = "Perfumy dla Izabeli",
+        amount = "150.00",
+        category = "Osobiste",
+        isUnnecessary = true,
+        onNameChange = {},
+        onAmountChange = {},
+        onCategoryChange = {},
+        onUnnecessaryChange = {},
+        onAddExpense = {}
+    )
 }
