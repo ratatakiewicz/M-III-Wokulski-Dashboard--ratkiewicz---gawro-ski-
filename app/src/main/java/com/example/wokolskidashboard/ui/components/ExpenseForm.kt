@@ -22,6 +22,14 @@ fun ExpenseForm(
 
     onAddExpense: () -> Unit
 ) {
+    val amountValue = amount.toDoubleOrNull()
+
+    val isNameValid = name.isNotBlank()
+    val isAmountValid = amountValue != null && amountValue > 0
+    val isCategoryValid = category.isNotBlank()
+
+    val isValid = isNameValid && isAmountValid && isCategoryValid
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -34,24 +42,24 @@ fun ExpenseForm(
             style = MaterialTheme.typography.titleMedium
         )
 
-        OutlinedTextField(
+        WokulskiTextField(
             value = name,
             onValueChange = onNameChange,
-            label = { Text("Cel wydatku") },
+            label = "Cel wydatku",
             modifier = Modifier.fillMaxWidth()
         )
 
-        OutlinedTextField(
+        WokulskiTextField(
             value = amount,
             onValueChange = onAmountChange,
-            label = { Text("Kwota (Rubel)") },
+            label = "Kwota (Rubel)",
             modifier = Modifier.fillMaxWidth()
         )
 
-        OutlinedTextField(
+        WokulskiTextField(
             value = category,
             onValueChange = onCategoryChange,
-            label = { Text("Kategoria (np. Sklep, Osobiste)") },
+            label = "Kategoria (np. Sklep, Osobiste)",
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -65,12 +73,13 @@ fun ExpenseForm(
                 onCheckedChange = onUnnecessaryChange
             )
         }
-        Button(
+
+        WokulskiButton(
+            text = "Zapisz wydatek",
             onClick = onAddExpense,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Zapisz wydatek")
-        }
+            modifier = Modifier.fillMaxWidth(),
+            enabled = isValid
+        )
     }
 }
 
