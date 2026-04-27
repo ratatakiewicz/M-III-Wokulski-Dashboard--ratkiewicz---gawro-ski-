@@ -72,6 +72,7 @@ fun IncomeForm(
                     amountText = ""
                 }
             },
+
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Zapisz przychód")
