@@ -1,16 +1,17 @@
-package com.example.wokulskidashboard.ui.components
-
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.wokolskidashboard.ui.components.WokulskiButton
+import com.example.wokolskidashboard.ui.components.WokulskiTextField
 
 
 @Composable
 fun IncomeForm(
-    onIncomeAdded: (name: String, amount: Double) -> Unit
+    onAddIncome: (name: String, amount: Double) -> Unit
 ) {
     var name by remember { mutableStateOf("") }
     var amountText by remember { mutableStateOf("") }
@@ -28,60 +29,49 @@ fun IncomeForm(
             style = MaterialTheme.typography.titleMedium
         )
 
-        OutlinedTextField(
+        WokulskiTextField(
             value = name,
             onValueChange = {
                 name = it
                 nameError = false
             },
-            label = { Text("Nazwa towaru") },
-            placeholder = { Text("np. Paryskie rękawiczki") },
-            isError = nameError,
-            supportingText = {
-                if (nameError) Text("Nazwa nie może być pusta")
-            },
-            modifier = Modifier.fillMaxWidth(),
-            singleLine = true
+            label = "Nazwa towaru",
+            modifier = Modifier.fillMaxWidth()
         )
+        if (nameError) Text("Nazwa nie może być pusta")
 
-        OutlinedTextField(
+        WokulskiTextField(
             value = amountText,
             onValueChange = {
                 amountText = it
                 amountError = false
             },
-            label = { Text("Kwota (Ruble)") },
-            placeholder = { Text("np. 15.00") },
-            isError = amountError,
-            supportingText = {
-                if (amountError) Text("Podaj prawidłową kwotę większą od zera")
-            },
-            modifier = Modifier.fillMaxWidth(),
-            singleLine = true
+            label = "Kwota (Ruble)",
+            modifier = Modifier.fillMaxWidth()
         )
+        if (amountError) Text("Podaj prawidłową kwotę większą od zera")
 
-        Button(
+        WokulskiButton(
+            text = "Zapisz przychód",
             onClick = {
                 val amount = amountText.toDoubleOrNull()
                 nameError = name.isBlank()
                 amountError = amount == null || amount <= 0
 
                 if (!nameError && !amountError) {
-                    onIncomeAdded(name.trim(), amount!!)
+                    onAddIncome(name.trim(), amount!!)
                     name = ""
                     amountText = ""
                 }
             },
-
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Zapisz przychód")
-        }
+            modifier = Modifier.fillMaxWidth(),
+            enabled = name.isNotBlank() && amountText.isNotBlank()
+        )
     }
 }
 
 @Preview
 @Composable
 fun IncomeFormPreview(){
-    IncomeForm(onIncomeAdded = { _, _ -> })
+    IncomeForm(onAddIncome = { _, _ -> })
 }
