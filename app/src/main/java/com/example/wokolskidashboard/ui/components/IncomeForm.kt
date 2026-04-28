@@ -11,7 +11,7 @@ import com.example.wokolskidashboard.ui.components.WokulskiTextField
 
 @Composable
 fun IncomeForm(
-    onIncomeAdded: (name: String, amount: Double) -> Unit
+    onAddIncome: (name: String, amount: Double) -> Unit
 ) {
     var name by remember { mutableStateOf("") }
     var amountText by remember { mutableStateOf("") }
@@ -59,7 +59,7 @@ fun IncomeForm(
                 amountError = amount == null || amount <= 0
 
                 if (!nameError && !amountError) {
-                    onIncomeAdded(name.trim(), amount!!)
+                    onAddIncome(name.trim(), amount!!)
                     name = ""
                     amountText = ""
                 }
@@ -73,5 +73,5 @@ fun IncomeForm(
 @Preview
 @Composable
 fun IncomeFormPreview(){
-    IncomeForm(onIncomeAdded = { _, _ -> })
+    IncomeForm(onAddIncome = { _, _ -> })
 }
