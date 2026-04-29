@@ -85,6 +85,10 @@ fun MainScreen() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-
+        LazyColumn {
+            items(transactions) { transaction ->
+                TransactionCard(transaction)
+            }
+        }
     }
 }
