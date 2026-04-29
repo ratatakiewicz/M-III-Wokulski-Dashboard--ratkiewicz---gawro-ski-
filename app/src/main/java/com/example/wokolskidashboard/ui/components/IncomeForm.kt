@@ -38,7 +38,7 @@ fun IncomeForm(
             label = "Nazwa towaru",
             modifier = Modifier.fillMaxWidth()
         )
-        if (nameError) Text("Nazwa nie może być pusta")
+        if (nameError) Text("Nazwa nie może być pusta", color = MaterialTheme.colorScheme.error)
 
         WokulskiTextField(
             value = amountText,
@@ -49,7 +49,7 @@ fun IncomeForm(
             label = "Kwota (Ruble)",
             modifier = Modifier.fillMaxWidth()
         )
-        if (amountError) Text("Podaj prawidłową kwotę większą od zera")
+        if (amountError) Text("Podaj prawidłową kwotę większą od zera", color = MaterialTheme.colorScheme.error)
 
         WokulskiButton(
             text = "Zapisz przychód",

@@ -46,7 +46,7 @@ fun ExpenseForm(
             label = "Cel wydatku",
             modifier = Modifier.fillMaxWidth()
         )
-        if (nameError) Text("Nazwa nie może być pusta")
+        if (nameError) Text("Nazwa nie może być pusta", color = MaterialTheme.colorScheme.error)
 
         WokulskiTextField(
             value = amount,
@@ -57,7 +57,7 @@ fun ExpenseForm(
             label = "Kwota (Rubel)",
             modifier = Modifier.fillMaxWidth()
         )
-        if (amountError) Text("Podaj prawidłową kwotę większą od zera")
+        if (amountError) Text("Podaj prawidłową kwotę większą od zera", color = MaterialTheme.colorScheme.error)
 
         WokulskiTextField(
             value = category,
@@ -68,7 +68,7 @@ fun ExpenseForm(
             label = "Kategoria (np. Sklep, Osobiste)",
             modifier = Modifier.fillMaxWidth()
         )
-        if (categoryError) Text("Kategoria nie może być pusta")
+        if (categoryError) Text("Kategoria nie może być pusta", color = MaterialTheme.colorScheme.error)
 
         Row(
             modifier = Modifier.fillMaxWidth(),
