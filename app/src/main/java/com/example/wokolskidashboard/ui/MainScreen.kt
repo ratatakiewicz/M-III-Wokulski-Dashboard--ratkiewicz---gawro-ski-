@@ -13,6 +13,7 @@ import com.example.wokolskidashboard.ui.components.*
 @Composable
 fun MainScreen() {
 
+
     val transactions = remember { mutableStateListOf<Transaction>() }
 
     var expenseName by remember { mutableStateOf("") }
@@ -23,12 +24,15 @@ fun MainScreen() {
     var incomeName by remember { mutableStateOf("") }
     var incomeAmount by remember { mutableStateOf("") }
 
+    val balance = transactions.sumOf { if (it.isExpense) -it.amount else it.amount }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
 
+        BalanceHeader(balance = balance)
 
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -82,5 +86,10 @@ fun MainScreen() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        LazyColumn {
+            items(transactions) { transaction ->
+                TransactionCard(transaction)
+            }
+        }
     }
 }
