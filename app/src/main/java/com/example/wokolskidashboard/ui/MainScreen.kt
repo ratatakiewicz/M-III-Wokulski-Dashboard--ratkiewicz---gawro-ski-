@@ -13,6 +13,7 @@ import com.example.wokolskidashboard.ui.components.*
 @Composable
 fun MainScreen() {
 
+
     val transactions = remember { mutableStateListOf<Transaction>() }
 
     var expenseName by remember { mutableStateOf("") }
