@@ -22,4 +22,65 @@ fun MainScreen() {
 
     var incomeName by remember { mutableStateOf("") }
     var incomeAmount by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+
+
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        IncomeForm(
+            onAddIncome = { name, amount ->
+                transactions.add(
+                    Transaction(
+                        name = name,
+                        amount = amount,
+                        isExpense = false,
+                        category = "Income"
+                    )
+                )
+            }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        ExpenseForm(
+            name = expenseName,
+            amount = expenseAmount,
+            category = expenseCategory,
+            isUnnecessary = isUnnecessary,
+
+            onNameChange = { expenseName = it },
+            onAmountChange = { expenseAmount = it },
+            onCategoryChange = { expenseCategory = it },
+            onUnnecessaryChange = { isUnnecessary = it },
+
+            onAddExpense = {
+                val amount = expenseAmount.toDoubleOrNull()
+
+                if (amount != null && expenseName.isNotBlank()) {
+                    transactions.add(
+                        Transaction(
+                            name = expenseName,
+                            amount = amount,
+                            isExpense = true,
+                            category = expenseCategory
+                        )
+                    )
+
+                    expenseName = ""
+                    expenseAmount = ""
+                    expenseCategory = ""
+                    isUnnecessary = false
+                }
+            }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+    }
 }
