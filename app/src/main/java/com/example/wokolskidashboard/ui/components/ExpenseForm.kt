@@ -21,13 +21,9 @@ fun ExpenseForm(
 
     onAddExpense: () -> Unit
 ) {
-    val amountValue = amount.toDoubleOrNull()
-
-    val isNameValid = name.isNotBlank()
-    val isAmountValid = amountValue != null && amountValue > 0
-    val isCategoryValid = category.isNotBlank()
-
-    val isValid = isNameValid && isAmountValid && isCategoryValid
+    var nameError by remember { mutableStateOf(false) }
+    var amountError by remember { mutableStateOf(false) }
+    var categoryError by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -43,24 +39,36 @@ fun ExpenseForm(
 
         WokulskiTextField(
             value = name,
-            onValueChange = onNameChange,
+            onValueChange = {
+                onNameChange(it)
+                nameError = false
+            },
             label = "Cel wydatku",
             modifier = Modifier.fillMaxWidth()
         )
+        if (nameError) Text("Nazwa nie może być pusta")
 
         WokulskiTextField(
             value = amount,
-            onValueChange = onAmountChange,
+            onValueChange = {
+                onAmountChange(it)
+                amountError = false
+            },
             label = "Kwota (Rubel)",
             modifier = Modifier.fillMaxWidth()
         )
+        if (amountError) Text("Podaj prawidłową kwotę większą od zera")
 
         WokulskiTextField(
             value = category,
-            onValueChange = onCategoryChange,
+            onValueChange = {
+                onCategoryChange(it)
+                categoryError = false
+            },
             label = "Kategoria (np. Sklep, Osobiste)",
             modifier = Modifier.fillMaxWidth()
         )
+        if (categoryError) Text("Kategoria nie może być pusta")
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -75,9 +83,19 @@ fun ExpenseForm(
 
         WokulskiButton(
             text = "Zapisz wydatek",
-            onClick = onAddExpense,
+            onClick = {
+                val amountParsed = amount.toDoubleOrNull()
+
+                nameError = name.isBlank()
+                amountError = amountParsed == null || amountParsed <= 0
+                categoryError = category.isBlank()
+
+                if (!nameError && !amountError && !categoryError) {
+                    onAddExpense()
+                }
+            },
             modifier = Modifier.fillMaxWidth(),
-            enabled = isValid
+            enabled = name.isNotBlank() && amount.isNotBlank() && category.isNotBlank()
         )
     }
 }
