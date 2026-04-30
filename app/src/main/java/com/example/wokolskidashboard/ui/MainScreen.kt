@@ -72,7 +72,8 @@ fun MainScreen() {
                             name = expenseName,
                             amount = amount,
                             isExpense = true,
-                            category = expenseCategory
+                            category = expenseCategory,
+                            isUnnecessary = isUnnecessary
                         )
                     )
 
